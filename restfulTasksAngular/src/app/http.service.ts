@@ -24,10 +24,14 @@ export class HttpService {
 
     // Logic to delete task gets ID from app.components.ts and sends http request to server
     deleteTask(ID) {
-        return this._http.delete(`/tasks/${ID}`)
+        return this._http.delete(`/tasks/${ID}`);
+    }
+
+    getOneTask(ID) {
+        return this._http.get(`tasks/${ID}`);
     }
 
     editTask(updatedTask) {
-        return this._http.put(`/tasks/${ID}`)
+        return this._http.put(`/tasks/${ID}`);
     }
 }

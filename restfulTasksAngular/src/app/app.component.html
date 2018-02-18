@@ -15,7 +15,10 @@
             <ul>
                 <!-- TODO: Create a button that sends ID to app.component.ts -->
                 <form (submit) = "onDeleteButton()">
-                    <li *ngFor = "let task of tasks">{{task.title}} - {{task.description}} <button (click) = "onDeleteButton(task._id)">Delete</button></li>
+                    <li *ngFor = "let task of tasks">{{task.title}} - {{task.description}} 
+                        <button (click) = "onDeleteButton(task._id)">Delete</button>
+                        <button (click) = "populatEditField(task._id)">Edit</button>
+                    </li>
                 </form>
             </ul>
         </div>
