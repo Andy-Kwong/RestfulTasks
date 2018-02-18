@@ -8,6 +8,7 @@ app.use(bodyParser.json());
 
 app.use(express.static( __dirname + '/restfulTasksAngular/dist' ));
 
+// Get all tasks
 app.get("/tasks", function(req, res) {
     Task.find({}, function(err, allTasks) {
         if(err) {
@@ -19,6 +20,7 @@ app.get("/tasks", function(req, res) {
     })
 })
 
+// Get task by ID
 app.get("/tasks/:id", function(req, res) {
     Task.findById(req.params.id, function(err, targetTask) {
         if(err) {
@@ -29,6 +31,7 @@ app.get("/tasks/:id", function(req, res) {
     })
 })
 
+// Create new task
 app.post("/tasks", function(req, res) {
     var task = new Task({
         title: req.body.title,
@@ -48,6 +51,7 @@ app.post("/tasks", function(req, res) {
     })
 })
 
+// Edit Task
 app.put("/tasks/:id", function(req, res) {
     Task.findById(req.params.id, function(err, targetTask) {
 
@@ -70,6 +74,7 @@ app.put("/tasks/:id", function(req, res) {
     })
 })
 
+// Delete task by ID
 app.delete("/tasks/:id", function(req, res) {
     Task.remove({_id: req.params.id}, function(err, targetTask) {
         
