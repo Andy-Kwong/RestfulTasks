@@ -46,7 +46,6 @@ app.post("/tasks", function(req, res) {
             console.log("new task error", err);
         } else {
             console.log("successfully added a new task");
-            res.redirect("/tasks")
         }
     })
 })
@@ -63,11 +62,11 @@ app.put("/tasks/:id", function(req, res) {
             targetTask.completed = req.body.completed;
             targetTask.save(function (err) {
                 if (err) {
-                    console.log("error updating task!");
+                    console.log(err);
                 }
                 else {
                     console.log("successfully updated task!");
-                    res.redirect("/tasks");
+                    res.json({ task: targetTask })
                 }
             })
         }

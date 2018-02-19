@@ -6,19 +6,21 @@ import { HttpClient } from '@angular/common/http';
 export class HttpService {
 
     constructor(private _http: HttpClient) {
-        this.getOneTask();
+
     }
+
     getTasks(){
 
         return this._http.get('/tasks');
      }
 
-    getOneTask(){
-        let tempObservable = this._http.get("/tasks/5a84bd2ec99f5fc67a4ffdff");
-        tempObservable.subscribe(data => console.log("Got one task!", data))
+    getOneTask(ID){
+
+        return this._http.get(`/tasks/${ID}`)
     }
 
     addTask(newtask) {
+
         return this._http.post('/tasks', newtask);
     }
 
@@ -27,11 +29,8 @@ export class HttpService {
         return this._http.delete(`/tasks/${ID}`);
     }
 
-    getOneTask(ID) {
-        return this._http.get(`tasks/${ID}`);
-    }
+    editTask(updatedTask, ID) {
 
-    editTask(updatedTask) {
-        return this._http.put(`/tasks/${ID}`);
+        return this._http.put(`/tasks/${ID}`, updatedTask);
     }
 }

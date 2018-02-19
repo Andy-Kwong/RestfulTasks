@@ -14,22 +14,19 @@
             <h1>All Tasks</h1>
             <ul>
                 <!-- TODO: Create a button that sends ID to app.component.ts -->
-                <form (submit) = "onDeleteButton()">
                     <li *ngFor = "let task of tasks">{{task.title}} - {{task.description}} 
                         <button (click) = "onDeleteButton(task._id)">Delete</button>
-                        <button (click) = "populatEditField(task._id)">Edit</button>
+                        <button (click) = "populateEditField(task)">Edit</button>
                     </li>
-                </form>
             </ul>
         </div>
-        
-        <div class="thirdTask">
-            <h1>Third Task</h1>
-            <ul>
-                <li>{{ tasks[2].title }} - {{ tasks[2].description }}</li>
-            </ul>
-        </div>
-    </div>
 
+        <form (submit) = "onEditButton(editTask.id)">
+            <p>{{ editTask | json }}</p>
+            <input type="text" name = "editTask.title" [(ngModel)] = "editTask.title" />
+            <input type="text" name = "editTask.description" [(ngModel)] = "editTask.description" />
+            <input type="submit" value = "Edit Task" />
+        </form>
+    </div>
 </div>
 

@@ -9,6 +9,7 @@ import { HttpService } from './http.service';
 
 export class AppComponent implements OnInit {
     newTask: any;
+    editTask: any;
     tasks = []
     showTasks: boolean;
     showHide: String;
@@ -20,9 +21,36 @@ export class AppComponent implements OnInit {
         this.showTasks = false;
         this.showHide = "Show";
         this.newTask = { title: "", description: "" }
+        this.editTask = { id: "", title: "", description: "" }
     }
 
-    // TODO: Create a new function to handle deleting a task and invoke deleteTask(ID) in http.service.ts
+    populateEditField(task) {
+        // let observable = this._httpService.getOneTask(ID);
+        // observable.subscribe(data => {
+        //     if (!this.editTask.title && !this.editTask.description) {
+        //         this.editTask = { id: "", title: "", description: "" }
+        //     }
+        //     this.editTask.id = data["task"]._id
+        //     this.editTask.title = data["task"].title
+        //     this.editTask.description = data["task"].description
+        // })
+
+        console.log(task)
+        this.editTask.id = task._id;
+        this.editTask.title = task.title;
+        this.editTask.description = task.description;
+    }
+
+    onEditButton(ID) {
+        let observable = this._httpService.editTask(this.editTask, ID);
+        observable.subscribe(data => {
+            console.log("Editing post", data);
+            this.getTasksFromService();
+        })
+
+        this.editTask = { id: "", title: "", description: "" };
+    }
+
     onDeleteButton(ID) {
         console.log(ID);
         let observable = this._httpService.deleteTask(ID);
