@@ -9,7 +9,10 @@ import { HttpService } from './http.service';
 
 export class AppComponent implements OnInit {
     newTask: any;
+
+    // EDIT TASK STEP 0a: Instatiate a variable that will hold data to be used to populate the text fields in HTML as well as be sent to the server to update our database
     editTask: any;
+
     tasks = []
     showTasks: boolean;
     showHide: String;
@@ -21,28 +24,24 @@ export class AppComponent implements OnInit {
         this.showTasks = false;
         this.showHide = "Show";
         this.newTask = { title: "", description: "" }
+
+        // EDIT TASK STEP 0b: We assign editTask as an Object with empty strings as default values
         this.editTask = { id: "", title: "", description: "" }
     }
 
+    // EDIT TASK STEP 2: We use the task that was passed into the function to assign respective values to editTask object
+    // Which is then reflected in the text field values in component.HTML
     populateEditField(task) {
-        // let observable = this._httpService.getOneTask(ID);
-        // observable.subscribe(data => {
-        //     if (!this.editTask.title && !this.editTask.description) {
-        //         this.editTask = { id: "", title: "", description: "" }
-        //     }
-        //     this.editTask.id = data["task"]._id
-        //     this.editTask.title = data["task"].title
-        //     this.editTask.description = data["task"].description
-        // })
-
         console.log(task)
         this.editTask.id = task._id;
         this.editTask.title = task.title;
         this.editTask.description = task.description;
     }
 
-    onEditButton(ID) {
-        let observable = this._httpService.editTask(this.editTask, ID);
+    onEditButton() {
+
+        // EDIT TASK STEP 4: Since editTask was being updated in real-time, we can send the raw editTask object as a parameter to the commitEditTask() method in service.ts
+        let observable = this._httpService.commitEditTask(this.editTask);
         observable.subscribe(data => {
             console.log("Editing post", data);
             this.getTasksFromService();

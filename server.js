@@ -50,7 +50,7 @@ app.post("/tasks", function(req, res) {
     })
 })
 
-// Edit Task
+// EDIT TASK STEP 6: Taking the id passed into the URL, we findByID the task we are updating then populate each respective field using the updatedTask object we passed in. 
 app.put("/tasks/:id", function(req, res) {
     Task.findById(req.params.id, function(err, targetTask) {
 
@@ -59,7 +59,7 @@ app.put("/tasks/:id", function(req, res) {
         } else {
             targetTask.description = req.body.description;
             targetTask.title = req.body.title;
-            targetTask.completed = req.body.completed;
+            // targetTask.completed = req.body.completed;
             targetTask.save(function (err) {
                 if (err) {
                     console.log(err);

@@ -13,16 +13,18 @@
         <div class="allTasks">
             <h1>All Tasks</h1>
             <ul>
-                <!-- TODO: Create a button that sends ID to app.component.ts -->
                     <li *ngFor = "let task of tasks">{{task.title}} - {{task.description}} 
                         <button (click) = "onDeleteButton(task._id)">Delete</button>
+                        <! -- EDIT TASK STEP 1: Button click calls the populateEditField function in app.compenent.ts. We pass the task in as a parameter -->
                         <button (click) = "populateEditField(task)">Edit</button>
                     </li>
             </ul>
         </div>
 
-        <form (submit) = "onEditButton(editTask.id)">
-            <p>{{ editTask | json }}</p>
+        <! -- EDIT TASK STEP 3: We call onEditButton() located in component.ts when the submit button is pressed -->
+        <form (submit) = "onEditButton()">
+
+            <!-- EDIT TASK STEP 0c: These text fields values reflect the data that the editTask Object holds and also updates the editTask Object in real time -->
             <input type="text" name = "editTask.title" [(ngModel)] = "editTask.title" />
             <input type="text" name = "editTask.description" [(ngModel)] = "editTask.description" />
             <input type="submit" value = "Edit Task" />
